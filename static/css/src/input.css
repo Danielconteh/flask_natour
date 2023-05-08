@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+}
+html {
+  font-size: 62.5% !important; /* (10 / 16) = 0.625 [62.5] */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+  overflow-x: hidden;
+}
+
+body {
+  @apply p-0 md:p-10 overflow-x-hidden;  
+  
+}
+
+.container_width {
+  max-width: 120rem;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+
+
+/* tour_card */
+.tour_card_filter{
+  @apply grid gap-12;
+  grid-template-columns: repeat(3, minmax(29rem,1fr));
+  margin: 2rem 1rem;
+  justify-content: center;
+  justify-items: center;
+}
+/* ======== */
+.tour_card{
+  @apply grid gap-12;
+  grid-template-columns: repeat(auto-fit, minmax(29rem,1fr));
+  margin: 2rem 1rem;
+}
+
+
+@media only screen and (max-width: 30em) {
+ .tour_card{
+  grid-template-columns: 1fr;
+ }
+}
+
+
+
+
+/* SINGLE TOUR */
+/* tour_info_guide_header  */
+
+.tour_info_guide_header {
+  @apply text-4xl pb-8 uppercase bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent;
+}
+
+.tour_guide {
+  @apply uppercase font-normal text-xl mr-4;
+}
+
+.tour_guide_img {
+  @apply inline-block h-14 w-14 rounded-full ring-2 ring-white mr-2;
+}
+
+.tour_guide_wrapper {
+  @apply flex items-center;
+}

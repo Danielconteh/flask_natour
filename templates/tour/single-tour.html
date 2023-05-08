@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+       {{tour['name']}} | Tour
+{% endblock title %}
+
+
+{% block main_content %}
+
+<!-- BANNER CONTAINER-->
+<div id='img' class="flex items-center justify-center  h-[55vh]  lg:h-[80vh] md:h-[60vh] relative" style="clip-path: polygon(0 0, 100% 0%, 100% 85%, 0% 100%);">
+
+
+    
+    <!-- IMAGE BANNER ...-->
+    <img class="w-full h-full object-cover absolute bottom-0 left-0 top-0"  src="{{url_for('static', filename='public/tours/' + tour['imageCover'] )}}" alt="{{tour['name']}}">
+    <!--END IMAGE...-->
+
+    <!--OVERLAYER-->
+    <div class="absolute w-full h-full opacity-70 bg-gradient-to-r from-purple-400 to-to-purple-500">&nbsp;</div>
+     <!-- END OVERLAYER-->
+
+      <!--TOP OVER CONTEN WITH TOUR NAME AND ETC...-->
+    <div class="text-2xl relative flex flex-col justify-center items-center">
+
+
+     <div class="relative w-[170px]" >
+       <span class="text-4xl leading-[3.5rem] text-white py-4 px-6  uppercase bg-gradient-to-r from-purple-500 to-pink-500 box-decoration-clone ">
+        {{tour['name']}}
+       </span>
+     </div>
+
+
+     <div class="text-white mt-8 flex justify-around w-[200px] ">
+      <span class="flex items-center" style="font-weight:bold; text-shadow: 2px 2px 4px #000000; z-index:2;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+        
+        <span class="text-white">{{tour['duration']}} days</span>
+      </span>
+
+
+     <span class="flex items-center" style="font-weight:bold; text-shadow: 2px 2px 4px #000000; z-index:2;">
+      <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        
+        
+
+        <span class="text-white">{{tour['startLocation']['description']}}</span>
+
+      </span>
+    </div>
+
+<!--END TOP OVER CONTEN WITH TOUR NAME AND ETC...-->
+
+
+ </div>
+
+
+</div>
+<!-- END BANNER CONTAINER-->
+
+
+
+ <!-- SECOND SECTION -->
+ <!-- CONTAIN QUICK FACT & TOUR GUIDES -->
+ <section class="mt-[-11rem] lg:mt-[-9rem] bg-[#fcfcfc] pt-[4rem] grid grid-cols-[1fr,1fr]"
+>
+        {% with data=tour  %}
+            {% include "tour/single_tour/tour_info.html" %}  
+        {% endwith %}
+
+
+    <!-- CONTAIN TOUR DES -->
+        {% with data=tour  %}
+            {% include "tour/single_tour/tour_des.html" %}       
+        {% endwith %}
+        
+
+  <!-- CONTAIN TOUR DES-->
+
+</section>
+
+
+ <!-- Third SECTION -->
+
+
+<!-- IMAGES SECTION mt-[0rem] md:mt-[2rem] lg:mt-[-9rem]-->
+
+<section
+  class="mt-[0rem] md:mt-[2rem] lg:mt-[-1rem] py-12 grid skew-y-[-4deg]"
+  style="grid-template-columns: repeat(auto-fit, minmax(275px, 1fr))"
+>
+  <!-- CONTAIN TOUR IMAGES -->
+
+        {% with data=tour  %}
+            {% include "tour/single_tour/images.html"  %}
+        {% endwith %}
+  
+  <!-- CONTAIN TOUR IMAGES-->
+</section>
+
+
+
+<!-- CONTAIN TOUR MAP LOCATION -->
+<section  class="skew-y-[-4deg] mt-[-7rem] bg-blue-500">
+
+  <div id="map"class="h-[60vh] md:h-[80vh]"></div>
+
+
+  <script>
+    
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+     
+     L.marker([51.5, -0.09]).addTo(map)
+         .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+         .openPopup();
+ </script>
+
+</section>
+
+
+
+<!-- TOUR BOOKING || LOGIN -->
+<!-- bg-gradient-to-r from-purple-400 to-pink-400  md:mb-20 bg-cyan-700 -->
+<section class="skew-y-[-4deg] md:my-20">
+  
+ <div class="skew-y-[4deg] shadow-sm rounded-md md:rounded-xl p-6 max-w-[150rem] h-[20rem] relative flex items-center overflow-x-hidden">
+
+
+     {% for img in  tour['images'] %} 
+     
+     {% if loop.index == 1%}
+     
+     <img class="h-40 w-40 md:h-52 md:w-52 rounded-full absolute left-0" style="
+     transform: translate(-10%, 0%) scale(0.97); z-index: 9;" src="{{url_for('static', filename='public/tours/' + img)}}" alt="booking_images">
+
+     {%endif%}
+
+     {% if loop.index == 2%}
+
+     <img class="h-40 w-40 md:h-52 md:w-52 rounded-full absolute left-0" style="transform: translate(15%, 0%) scale(0.94);z-index: 8;" src="{{url_for('static', filename='public/tours/' + img)}}" alt="booking_images">
+
+     {%endif%}
+
+     {% if loop.index == 3%}
+
+     <img class="h-40 w-40 md:h-52 md:w-52 rounded-full absolute left-0" style="transform: translate(-35%, 0%);z-index: 10;" src="{{url_for('static', filename='public/tours/' + img)}}" alt="booking_images"> 
+     {%endif%}
+
+     {% endfor %}
+
+
+
+     <div class="grid  ml-56" style=" grid-template-rows: auto auto;
+     grid-template-columns: 1fr auto;
+     grid-gap: 0.7rem 0.4rem;
+     -webkit-box-align: center;
+     -ms-flex-align: center;
+     align-items: center;">
+
+         <div class="text-2xl uppercase bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent col-start-1 col-end-3 md:col-end-2">what are you waiting for?</div>
+
+         <p class="text-2xl text-slate-500 col-start-1 col-end-3 md:col-end-2">
+             10 days. 1 adventure. Infinite memories. Make it yours today!
+
+         </p>
+         <div class="pt-4 md:pt-0 md:px-8 md:row-span-full md:col-start-2">
+
+             <a href="/" type="submit" id="checkout-button" class=" bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg text-white p-4 text-xl capitalize">Book tour now!</a>
+      
+           
+
+         </div>
+
+     </div>
+     <!-- row-span-full col-span-full
+col-span-full -->
+ </div>
+ 
+</section>
+
+
+{% endblock main_content %}

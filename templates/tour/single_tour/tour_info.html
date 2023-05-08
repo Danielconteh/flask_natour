@@ -1,0 +1,77 @@
+<!--SECTION 1 -> TOUR facts [style="clip-path: polygon(0 15%, 100% 0%, 100% 85%, 0% 100%);]  [#f7f7f7]-->
+
+<div class=" col-start-1 col-end-3 lg:col-start-1 lg:col-end-2 bg-[#f7f7f7] p-8 flex flex-col items-center">
+
+    <div class="mt-[8rem] text-xl ">
+
+        <div class="tour_info_guide_header ">Quick facts</div>
+
+        
+        <div class="flex items-center text-[#777]">
+            <svg xmlns="http://www.w3.org/2000/svg " class="h-6 w-6 mr-4 " fill="none " viewBox="0 0 24 24 " stroke="currentColor ">
+            <path stroke-linecap="round " stroke-linejoin="round " stroke-width="2 " d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z " />
+            </svg>
+            <!--svg-->
+            <span class="uppercase font-normal text-2xl mr-4 ">Next date</span>
+            <span class=" ">{{data['startDates'].0 | strftime}}</span>
+        </div>
+
+
+
+        <div class="pt-6 flex items-center text-[#777]">
+            <svg xmlns="http://www.w3.org/2000/svg " class="h-6 w-6 mr-4 " fill="none " viewBox="0 0 24 24 " stroke="currentColor ">
+                <path stroke-linecap="round " stroke-linejoin="round " stroke-width="2 " d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6 " />
+            </svg>
+            <!--svg-->
+            <span class="uppercase font-normal text-2xl mr-4 ">Difficulty</span>
+            <span class=" ">{{data['difficulty']}}</span>
+        </div>
+
+
+
+        <div class="pt-6 flex items-center text-[#777]">
+            <svg xmlns="http://www.w3.org/2000/svg " class="h-6 w-6 mr-4 " fill="none " viewBox="0 0 24 24 " stroke="currentColor ">
+                <path stroke-linecap="round " stroke-linejoin="round " stroke-width="2 " d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z " />
+            </svg>
+            <!--svg-->
+            <span class="uppercase font-normal text-2xl mr-4 ">Participants</span>
+            <span class=" ">{{data['maxGroupSize']}} people</span>
+        </div>
+
+
+
+        <div class="pt-6 flex items-center text-[#777]">
+            <svg xmlns="http://www.w3.org/2000/svg " class="h-6 w-6 mr-4 " fill="none " viewBox="0 0 24 24 " stroke="currentColor ">
+                <path stroke-linecap="round " stroke-linejoin="round " stroke-width="2 " d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538
+                1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z " />
+            </svg>
+            <!--svg-->
+            <span class="uppercase font-normal text-2xl mr-4 ">Rating</span>
+            <span class="capitalize tracking-wider">{{data['ratingsAverage']}}</span>
+        </div>
+
+
+    </div>
+
+
+
+
+     <!-- GUIDES -->
+
+     <div class="mt-[4rem] text-xl ">
+        <h2 class="tour_info_guide_header ">Your tour guides</h2>
+
+        {% for guide in data['guide'] %}
+
+        <div class="tour_guide_wrapper py-3 text-[#777]">
+            <img src="{{url_for('static', filename='public/users/' + guide['photo'])}}" alt="{{guide['role']}}" class="tour_guide_img md:mr-4" />
+            <span class="tour_guide text-xl md:text-2xl md:mr-8">{{guide['role']}}</span>
+            <span class="capitalize">{{guide['name']}}</span>
+        </div>
+        
+        {% endfor %}
+
+       
+</div> 
+
+</div>

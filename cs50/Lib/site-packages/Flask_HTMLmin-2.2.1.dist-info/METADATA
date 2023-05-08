@@ -1,0 +1,106 @@
+Metadata-Version: 2.1
+Name: Flask-HTMLmin
+Version: 2.2.1
+Summary: Minify flask text/html mime type responses
+Home-page: https://github.com/hamidfzm/Flask-HTMLmin
+Author: Hamid FzM
+Author-email: hamidfzm@gmail.com
+License: BSD-3-Clause
+Platform: any
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing :: Markup :: HTML
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: Flask
+Requires-Dist: htmlmin
+Requires-Dist: cssmin
+
+
+Flask-HTMLmin
+=============
+[![PyPI version](https://badge.fury.io/py/Flask-HTMLmin.svg)](https://badge.fury.io/py/Flask-HTMLmin)
+![Supported Python Versions](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9-blue.svg)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-orange.svg)](LICENSE)
+![tests](https://github.com/hamidfzm/Flask-HTMLmin/workflows/tests/badge.svg)
+[![codecov](https://codecov.io/gh/hamidfzm/Flask-HTMLmin/branch/master/graph/badge.svg)](https://codecov.io/gh/hamidfzm/Flask-HTMLmin)
+
+Minify flask `text/html` mime type responses.
+Just add `MINIFY_HTML = True` to your deployment config to minify HTML and text responses of your flask application.
+
+
+Installation
+------------
+To install Flask-HTMLmin, simply use pip:
+
+    pip install Flask-HTMLmin
+
+Or use pipenv:
+
+    pipenv install Flask-HTMLmin
+
+Or use poetry:
+
+    poetry add Flask-HTMLmin
+
+Or alternatively, you can download the repository and install it manually by doing:
+
+    git clone git@github.com:hamidfzm/Flask-HTMLmin.git
+    cd Flask-HTMLmin
+    python setup.py install
+
+
+Example
+-------
+```python
+from flask import Flask, render_template
+from flask_htmlmin import HTMLMIN
+
+app = Flask(__name__)
+app.config['MINIFY_HTML'] = True
+
+htmlmin = HTMLMIN(app)
+# or you can use HTMLMIN().init_app(app)
+# pass additional parameters to htmlmin
+# HTMLMIN(app, **kwargs)
+# example:
+# htmlmin = HTMLMIN(app, remove_comments=False, remove_empty_space=True, disable_css_min=True)
+
+
+@app.route('/')
+def main():
+    # index.html will be minimized !!!
+    return render_template('index.html')
+
+
+@app.route('/exempt')
+@htmlmin.exempt
+def exempted_route():
+    # index.html will be exempted and not blessed by holy htmlmin !!!
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run()
+```
+
+TODO
+----
+- [x] Test cases
+- [x] Route (or URL rule) exemption
+- [x] Caching (in progress)
+- [x] Minify inline CSS
+- [ ] Minify inline Javascript
+- [ ] Type hints
+
+

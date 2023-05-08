@@ -1,0 +1,6 @@
+{% for img in data['images'] %}
+<div class="" style="min-height:40vh;">
+    <img class="h-full w-full" src="{{url_for('static', filename='public/tours/' + img)}}" alt="image" />
+</div>
+
+{% endfor %}
